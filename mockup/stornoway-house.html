@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Stornoway House · Hugh Anthony</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+:root { padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px) }
+body { margin: 0 }
+[hidden] { display: none !important }
+
+.crumbs { font: 400 var(--s-xs)/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--slate); display: flex; gap: 10px; padding-top: clamp(28px, 4vw, 48px) }
+.crumbs a { text-decoration: none }
+.crumbs a:hover { color: var(--railing) }
+
+.cs-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 24px clamp(28px, 5vw, 72px); align-items: end; padding-block: 20px clamp(28px, 4vw, 44px) }
+.cs-head h1 { font-size: var(--s-xxl); line-height: 1.02 }
+.cs-head .lede { font-size: var(--s-lg); line-height: 1.45; color: var(--slate); margin-top: 18px; max-width: 38ch }
+.facts { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 20px; margin: 0; padding-top: 16px; border-top: 1px solid var(--railing); font-size: var(--s-sm) }
+.facts dt { font: 500 .6875rem/1.6 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--slate) }
+.facts dd { margin: 0 }
+@media (max-width: 820px) { .cs-head { grid-template-columns: minmax(0, 1fr) } }
+
+.cover { margin: 0 }
+.cover img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: center 35% }
+.cover figcaption { font: 400 var(--s-xs)/1.4 var(--mono); color: var(--slate); padding-top: 10px }
+@media (max-width: 700px) { .cover img { aspect-ratio: 4 / 3 } }
+
+.story { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 8fr); gap: 24px clamp(28px, 5vw, 72px); padding-block: clamp(48px, 7vw, 88px) 0 }
+.story h2 { font-size: 1.5rem; line-height: 1.2 }
+.story .eyebrow { margin-bottom: 10px }
+.prose { display: grid; gap: 16px; max-width: 64ch }
+.prose p { line-height: 1.7 }
+.ph { background: color-mix(in srgb, var(--gold) 16%, transparent); padding: 0 3px; box-decoration-break: clone; -webkit-box-decoration-break: clone }
+@media (max-width: 760px) { .story { grid-template-columns: minmax(0, 1fr) } }
+
+/* Schedule of works */
+.sched-wrap { overflow-x: auto; margin-top: 4px }
+table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-size: var(--s-sm) }
+.sched th { font: 500 .6875rem/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--slate); text-align: left; padding: 0 16px 10px 0; border-bottom: 1px solid var(--railing) }
+.sched td { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.5 }
+.sched td:first-child { font: 400 var(--s-xs)/1.5 var(--mono); color: var(--slate); font-variant-numeric: tabular-nums; width: 3.5rem }
+.sched td:nth-child(2) { font: 400 1.05rem/1.35 var(--display); width: 9rem }
+.sched td:last-child { font: 400 .75rem/1.5 var(--mono) }
+
+/* Before / after */
+.ba { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px }
+.ba figure { margin: 0; display: grid; gap: 8px }
+.ba img, .ba .empty { width: 100%; aspect-ratio: 4 / 5; object-fit: cover }
+.ba .empty { display: grid; place-content: center; gap: 8px; text-align: center; border: 1px dashed var(--slate); background: repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in srgb, var(--slate) 10%, transparent) 14px 15px); color: var(--slate); padding: 16px }
+.ba .empty b { font: 400 1.25rem/1.2 var(--display); color: var(--railing) }
+.ba .empty span { font-size: var(--s-sm); max-width: 26ch }
+.ba figcaption { display: flex; justify-content: space-between; gap: 12px; font: 500 .6875rem/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--slate) }
+@media (max-width: 520px) { .ba { grid-template-columns: minmax(0, 1fr) } }
+
+/* Quote */
+.quote-block { margin: 0; padding: 28px 0 0; border-top: 2px solid var(--gold); display: grid; gap: 16px; max-width: 60ch }
+.quote-block p { font: 400 clamp(1.35rem, 2.4vw, 1.75rem)/1.35 var(--display) }
+.quote-block footer { font-size: var(--s-sm); color: var(--slate) }
+
+/* Related */
+.related { padding-block: clamp(56px, 8vw, 96px) }
+.related .projects .proj { grid-column: span 6 }
+@media (max-width: 600px) { .related .projects .proj { grid-column: span 12 } }
+.next { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 28px }
+.next h2 { font-size: var(--s-xl) }
+.band .wrap.short { grid-template-columns: minmax(0, 1fr) auto; align-items: end }
+@media (max-width: 760px) { .band .wrap.short { grid-template-columns: minmax(0, 1fr) } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Hugh Anthony home"><b>Hugh Anthony</b><small>Interiors &amp; Exteriors · Est. 2000</small></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#projects" aria-current="page" style="color:var(--railing)">Projects</a>
+      <a href="index.html#methods">Specialist methods</a>
+      <a href="index.html#contractors">For contractors</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#enquire">Contact</a>
+    </nav>
+    <a class="phone" href="tel:02088554555">020 8855 4555</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html#projects">Projects</a><span aria-hidden="true">/</span><span>Stornoway House</span></nav>
+
+    <div class="cs-head">
+      <div>
+        <h1>Stornoway House</h1>
+        <p class="lede">External redecoration of a stucco façade, carpentry repairs to the sash windows, new terrace decking and refurbished railings.</p>
+      </div>
+      <dl class="facts">
+        <dt>Location</dt><dd>St James’s, London SW1 <span class="tbc">CONFIRM</span></dd>
+        <dt>Building</dt><dd>Listed, grade <span class="ph">[II / II*]</span> <span class="tbc">CONFIRM</span></dd>
+        <dt>Main contractor</dt><dd><span class="ph">[Contractor name]</span></dd>
+        <dt>Programme</dt><dd><span class="ph">[x weeks, 20xx]</span></dd>
+        <dt>Our trades</dt><dd>Decorating · carpentry · metalwork prep</dd>
+      </dl>
+    </div>
+
+    <figure class="cover">
+      <img src="img/stornoway-house.jpg" alt="Stornoway House from the garden side: a white stucco Regency building with a curved bay and iron balconies" width="1190" height="1200">
+      <figcaption>Garden elevation after redecoration.</figcaption>
+    </figure>
+    <p class="note"><b>Why:</b> a case study answers the questions a contractor’s estimator would ask: what was the building, who was the client, what did you actually do, and did it run to programme. Highlighted text is draft copy to fill in with Hugh Anthony.</p>
+
+    <section class="story" aria-labelledby="brief">
+      <div><p class="eyebrow">01 · Brief</p><h2 id="brief">The brief</h2></div>
+      <div class="prose">
+        <p>Stornoway House is a <span class="ph">[early 19th-century]</span> stucco building <span class="ph">overlooking Green Park. Weathering had left the façade paintwork failing and several sashes with decayed timber at the sills and bottom rails.</span></p>
+        <p>We were appointed by <span class="ph">[main contractor]</span> to redecorate the exterior, repair the sash windows in place rather than replace them, renew the terrace decking and bring the railings back to good order. The building stayed <span class="ph">[occupied / in use]</span> throughout.</p>
+      </div>
+    </section>
+
+    <section class="story" aria-labelledby="scope">
+      <div><p class="eyebrow">02 · Scope</p><h2 id="scope">Schedule of works</h2></div>
+      <div>
+        <div class="sched-wrap">
+          <table class="sched">
+            <thead><tr><th scope="col">Ref</th><th scope="col">Element</th><th scope="col">Work</th><th scope="col">System</th></tr></thead>
+            <tbody>
+              <tr><td>1.0</td><td>Façade</td><td>Wash down, cut out and make good cracks to stucco, full redecoration of elevations and cornices.</td><td><span class="ph">[Coating system]</span></td></tr>
+              <tr><td>2.0</td><td>Sash windows</td><td>Cut out decayed timber, splice and resin repairs to sills and rails, ease and adjust, redecorate.</td><td><span class="ph">[Repair Care Dry Flex?]</span></td></tr>
+              <tr><td>3.0</td><td>Terraces</td><td>Remove existing and install new decking to terraces.</td><td><span class="ph">[Timber species / product]</span></td></tr>
+              <tr><td>4.0</td><td>Railings</td><td>Prepare, treat corrosion and redecorate railings and balcony ironwork.</td><td><span class="ph">[Metal primer / finish]</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note"><b>Why:</b> a schedule of works is the format contractors already use in tenders, so it reads as competence at a glance. Each “System” cell also names a product, which helps searches like “Keim contractor London”.</p>
+      </div>
+    </section>
+
+    <section class="story" aria-labelledby="ba">
+      <div><p class="eyebrow">03 · Result</p><h2 id="ba">Before and after</h2></div>
+      <div>
+        <div class="ba">
+          <figure>
+            <div class="empty" role="img" aria-label="Placeholder for a before photo"><b>Before photo</b><span>Ask Hugh Anthony for a site photo of the façade or a sash before work began.</span></div>
+            <figcaption><span>Before</span><span>Entrance elevation</span></figcaption>
+          </figure>
+          <figure>
+            <img src="img/stornoway-door.jpg" alt="Arched entrance door of Stornoway House in white stucco with black railings, after redecoration" loading="lazy">
+            <figcaption><span>After</span><span>Entrance elevation</span></figcaption>
+          </figure>
+        </div>
+        <p class="note"><b>Why:</b> before-and-after pairs are the most persuasive content a decorator can show, and the current site has none. Most firms have site photos on someone’s phone; collecting them is the main content task for the rebuild.</p>
+      </div>
+    </section>
+
+    <section class="story" aria-labelledby="site">
+      <div><p class="eyebrow">04 · On site</p><h2 id="site">Working around the building</h2></div>
+      <div class="prose">
+        <p>The work was programmed elevation by elevation so that <span class="ph">[the building could stay in use / access to the garden was kept]</span>. <span class="ph">Sashes were repaired in situ, one opening at a time, so no room was left without a window overnight.</span></p>
+        <p>Our <span class="ph">[number]</span>-strong team was CSCS carded, worked to RAMS agreed with <span class="ph">[main contractor]</span> and finished <span class="ph">[on programme]</span>.</p>
+      </div>
+    </section>
+
+    <section class="story" aria-label="Client feedback">
+      <div><p class="eyebrow">05 · Feedback</p></div>
+      <blockquote class="quote-block">
+        <p><span class="ph">[One or two sentences from the main contractor’s project manager about quality, tidiness or keeping to programme.]</span></p>
+        <footer><span class="ph">[Name]</span>, Project Manager, <span class="ph">[Main contractor]</span></footer>
+      </blockquote>
+    </section>
+  </div>
+
+  <section class="related" aria-labelledby="more">
+    <div class="wrap">
+      <div class="next"><h2 id="more">More heritage projects</h2><a class="more" href="index.html#projects">All projects</a></div>
+      <div class="projects">
+        <a class="proj" href="index.html#projects">
+          <img src="img/portuguese-embassy.jpg" alt="The Portuguese Embassy, a white stucco corner building" loading="lazy">
+          <div class="meta"><h3>Portuguese Embassy</h3><dl class="spec"><dt>Scope</dt><dd>Façade · windows · sash repairs</dd></dl></div>
+        </a>
+        <a class="proj" href="index.html#projects">
+          <img src="img/vestry-hall.jpg" alt="Vestry Hall at St Martin-in-the-Fields, a pale stone façade" loading="lazy">
+          <div class="meta"><h3>Vestry Hall, St Martin-in-the-Fields</h3><dl class="spec"><dt>System</dt><dd>Keim Mineral Paints</dd></dl></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap short">
+      <div>
+        <p class="eyebrow">Enquiries &amp; tenders</p>
+        <h2>Pricing a similar package?</h2>
+        <p>Send the drawings or specification and we will come back with a price and programme.</p>
+      </div>
+      <div class="direct" style="margin-top:0">
+        <div><small>Office · Mon–Fri 8.30–5.30</small><b>020 8855 4555</b></div>
+        <a class="btn" href="index.html#enquire">Send an enquiry</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Hugh Anthony Interiors Ltd</b>Family owned and run since 2000. Specialist painting, decorating and window restoration for London and the South East.</div>
+    <div><b>Office</b><address>Suite 32, Press House<br>Crest View Drive<br>Petts Wood, Orpington<br>Kent BR5 1FE</address></div>
+    <div><b>Contact</b>020 8855 4555<br>info@hughanthony.co.uk<br>Visits by appointment</div>
+    <div><b>Site</b><a href="index.html#projects">Projects</a><br><a href="index.html#methods">Specialist methods</a><br><a href="index.html#contractors">For contractors</a></div>
+    <div class="legal"><span>© 2026 Hugh Anthony Interiors Ltd</span><span>Registered in England no. 3979960</span><span>Terms</span><span>Privacy</span></div>
+  </div>
+</footer>
+
+<button class="toggle" id="toggle" type="button" aria-pressed="false">Show design notes</button>
+<script>
+const t = document.getElementById('toggle');
+t.addEventListener('click', () => {
+  const on = document.body.classList.toggle('notes');
+  t.setAttribute('aria-pressed', on);
+  t.textContent = on ? 'Hide design notes' : 'Show design notes';
+});
+</script>
+</body>
+</html>
