@@ -238,3 +238,5 @@ body.notes .note { display: block }
 .m:hover .glyph .lift, .m:focus-within .glyph .lift { transform: rotate(-9deg) translate(-1px, -2px) }
 
 @media (prefers-reduced-motion: reduce) { .gold, .gold:hover { animation: none; background-position: 0 0 } }
+.brand b { white-space: nowrap }
+@media (max-width: 420px) { .brand small { display: none } .top .wrap { gap: 12px } }

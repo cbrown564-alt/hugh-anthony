@@ -79,6 +79,39 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
 .next h2 { font-size: var(--s-xl) }
 .band .wrap.short { grid-template-columns: minmax(0, 1fr) auto; align-items: end }
 @media (max-width: 760px) { .band .wrap.short { grid-template-columns: minmax(0, 1fr) } }
+
+/* Sash diagram */
+:root { --rot: #8a4b2a }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --rot: #d08a60 } }
+:root[data-theme="dark"] { --rot: #d08a60 }
+.sdfig { margin: 0; display: grid; gap: 14px }
+.seg { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--railing); justify-self: start; max-width: 100% }
+.seg button { font: 500 var(--s-sm)/1 var(--body); padding: 11px 14px; background: none; color: var(--railing); border: 0; border-left: 1px solid var(--railing); cursor: pointer }
+.seg button:first-child { border-left: 0 }
+.seg button[aria-pressed="true"] { background: var(--railing); color: var(--stucco) }
+.seg button:hover:not([aria-pressed="true"]) { background: var(--stone) }
+.sdscroll { overflow-x: auto; background: var(--stone); border: 1px solid var(--rule) }
+.sd { display: block; width: 100%; min-width: 660px; height: auto; color: var(--railing) }
+.sd .frame, .sd .sash { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round }
+.sd .timber { fill: var(--stucco) }
+.sd .glass { fill: color-mix(in srgb, var(--slate) 16%, var(--stucco)) }
+.sd .sash path { stroke-width: 3 }
+.sd .cavity { fill: var(--stone); stroke-dasharray: 4 3 }
+.sd .ldr { stroke: currentColor; stroke-width: 1; opacity: .45 }
+.sd .pt { fill: currentColor }
+.sd .lbl { font: 400 12.5px var(--body); fill: currentColor }
+.sd .rot { fill: url(#rotHatch); stroke: var(--rot); stroke-width: 1.4 }
+.sd .rot-bg { fill: color-mix(in srgb, var(--rot) 22%, var(--stucco)) }
+.sd .rot-line { stroke: var(--rot); stroke-width: 1.6 }
+.sd .rotlbl { fill: var(--rot); font-weight: 600 }
+.sd .new { fill: color-mix(in srgb, var(--gold) 45%, var(--stucco)); stroke: var(--gold); stroke-width: 1.6 }
+.sd .newlbl { fill: color-mix(in srgb, var(--gold) 72%, var(--railing)); font-weight: 600 }
+.sd .keeplbl { font-weight: 600 }
+.sd .layer { opacity: 0; transition: opacity .35s ease }
+.sdfig[data-state="parts"] .s-parts, .sdfig[data-state="decay"] .s-decay, .sdfig[data-state="repair"] .s-repair { opacity: 1 }
+.sdfig[data-state="decay"] .s-decay .rot { animation: seep .5s ease both }
+@keyframes seep { from { opacity: 0 } }
+@media (prefers-reduced-motion: reduce) { .sd .layer { transition: none } .sdfig .rot { animation: none } }
 </style>
 </head>
 <body>
@@ -148,8 +181,47 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
       </div>
     </section>
 
+    <section class="story" id="sash" aria-labelledby="method">
+      <div><p class="eyebrow">03 · Method</p><h2 id="method">How we repair a sash window</h2></div>
+      <div>
+        <div class="prose" style="margin-bottom:24px"><p>Most decay in a sash window starts where water sits. Rather than replace the window, we cut out only the rotten timber and splice in new wood using the Repair Care system, so the original sashes, glass and mouldings stay in the building.</p></div>
+        <figure class="sdfig" id="sdfig" data-state="parts">
+          <div class="seg" role="group" aria-label="Diagram view">
+            <button type="button" data-v="parts" aria-pressed="true">Parts of a sash</button>
+            <button type="button" data-v="decay" aria-pressed="false">Where rot starts</button>
+            <button type="button" data-v="repair" aria-pressed="false">What we repair</button>
+          </div>
+          <div class="sdscroll"><svg class="sd" viewBox="-70 20 820 465" role="img" aria-labelledby="sd-cap">
+            <defs><pattern id="rotHatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect class="rot-bg" width="5" height="5"/><line class="rot-line" x1="0" y1="0" x2="0" y2="5"/></pattern></defs>
+            <g class="frame">
+              <rect class="timber" x="190" y="40" width="260" height="406"/>
+              <rect class="cavity" x="416" y="62" width="34" height="384"/>
+              <rect class="timber" x="224" y="62" width="192" height="384"/>
+              <polygon class="timber" points="176,446 464,446 472,470 168,470"/>
+              <circle class="timber" cx="433" cy="78" r="7"/>
+              <line x1="426" y1="78" x2="426" y2="150"/><line x1="440" y1="78" x2="440" y2="220"/>
+              <rect class="timber" x="434" y="220" width="12" height="80" rx="2"/>
+            </g>
+            <g class="sash">
+              <rect class="timber" x="228" y="66" width="184" height="196"/><rect class="glass" x="240" y="78" width="160" height="172"/>
+              <path d="M293.3 78V250M346.7 78V250M240 164H400"/>
+            </g>
+            <g class="sash">
+              <rect class="timber" x="228" y="254" width="184" height="188"/><rect class="glass" x="240" y="266" width="160" height="154"/>
+              <path d="M293.3 266V420M346.7 266V420M240 343H400"/>
+            </g>
+            <g class="layer s-parts"><line class="ldr" x1="176" y1="51" x2="200" y2="51"/><circle class="pt" cx="200" cy="51" r="2.2"/><text class="lbl " x="172" y="55" text-anchor="end">Head</text><line class="ldr" x1="176" y1="72" x2="232" y2="72"/><circle class="pt" cx="232" cy="72" r="2.2"/><text class="lbl " x="172" y="76" text-anchor="end">Top rail</text><line class="ldr" x1="176" y1="120" x2="293" y2="120"/><circle class="pt" cx="293" cy="120" r="2.2"/><text class="lbl " x="172" y="124" text-anchor="end">Glazing bar</text><line class="ldr" x1="176" y1="258" x2="232" y2="258"/><circle class="pt" cx="232" cy="258" r="2.2"/><text class="lbl " x="172" y="262" text-anchor="end">Meeting rails</text><line class="ldr" x1="176" y1="330" x2="234" y2="330"/><circle class="pt" cx="234" cy="330" r="2.2"/><text class="lbl " x="172" y="334" text-anchor="end">Stile</text><line class="ldr" x1="176" y1="431" x2="234" y2="431"/><circle class="pt" cx="234" cy="431" r="2.2"/><text class="lbl " x="172" y="435" text-anchor="end">Bottom rail</text><line class="ldr" x1="176" y1="462" x2="190" y2="462"/><circle class="pt" cx="190" cy="462" r="2.2"/><text class="lbl " x="172" y="466" text-anchor="end">Sill</text><line class="ldr" x1="474" y1="78" x2="440" y2="78"/><circle class="pt" cx="440" cy="78" r="2.2"/><text class="lbl " x="478" y="82" text-anchor="start">Pulley</text><line class="ldr" x1="474" y1="130" x2="426" y2="130"/><circle class="pt" cx="426" cy="130" r="2.2"/><text class="lbl " x="478" y="134" text-anchor="start">Sash cord</text><line class="ldr" x1="474" y1="260" x2="446" y2="260"/><circle class="pt" cx="446" cy="260" r="2.2"/><text class="lbl " x="478" y="264" text-anchor="start">Weight</text><line class="ldr" x1="474" y1="170" x2="412" y2="170"/><circle class="pt" cx="412" cy="170" r="2.2"/><text class="lbl " x="478" y="174" text-anchor="start">Upper sash</text><line class="ldr" x1="474" y1="350" x2="412" y2="350"/><circle class="pt" cx="412" cy="350" r="2.2"/><text class="lbl " x="478" y="354" text-anchor="start">Lower sash</text><line class="ldr" x1="474" y1="400" x2="450" y2="400"/><circle class="pt" cx="450" cy="400" r="2.2"/><text class="lbl " x="478" y="404" text-anchor="start">Box frame, cut away</text></g>
+            <g class="layer s-decay"><rect class="rot" x="228" y="420" width="40" height="22"/><rect class="rot" x="372" y="420" width="40" height="22"/><rect class="rot" x="228" y="392" width="12" height="28"/><rect class="rot" x="400" y="392" width="12" height="28"/><polygon class="rot" points="172,458 468,458 472,470 168,470"/><line class="ldr" x1="176" y1="406" x2="234" y2="400"/><circle class="pt" cx="234" cy="400" r="2.2"/><text class="lbl rotlbl" x="172" y="410" text-anchor="end">Water runs down the stiles</text><line class="ldr" x1="176" y1="431" x2="248" y2="431"/><circle class="pt" cx="248" cy="431" r="2.2"/><text class="lbl rotlbl" x="172" y="435" text-anchor="end">End grain at the joints soaks it up</text><line class="ldr" x1="474" y1="431" x2="392" y2="431"/><circle class="pt" cx="392" cy="431" r="2.2"/><text class="lbl rotlbl" x="478" y="435" text-anchor="start">Paint fails first at the bottom rail</text><line class="ldr" x1="474" y1="466" x2="466" y2="464"/><circle class="pt" cx="466" cy="464" r="2.2"/><text class="lbl rotlbl" x="478" y="470" text-anchor="start">Sill nosing holds standing water</text></g>
+            <g class="layer s-repair"><polygon class="new" points="228,420 272,420 260,442 228,442"/><polygon class="new" points="412,420 368,420 380,442 412,442"/><polygon class="new" points="228,402 240,394 240,420 228,420"/><polygon class="new" points="412,402 400,394 400,420 412,420"/><polygon class="new" points="172,458 468,458 472,470 168,470"/><line class="ldr" x1="176" y1="406" x2="234" y2="404"/><circle class="pt" cx="234" cy="404" r="2.2"/><text class="lbl newlbl" x="172" y="410" text-anchor="end">New timber, scarf-jointed</text><line class="ldr" x1="176" y1="431" x2="250" y2="431"/><circle class="pt" cx="250" cy="431" r="2.2"/><text class="lbl newlbl" x="172" y="435" text-anchor="end">Only the decayed wood is cut out</text><line class="ldr" x1="474" y1="431" x2="390" y2="431"/><circle class="pt" cx="390" cy="431" r="2.2"/><text class="lbl newlbl" x="478" y="435" text-anchor="start">Resin-bonded, primed, redecorated</text><line class="ldr" x1="474" y1="466" x2="466" y2="464"/><circle class="pt" cx="466" cy="464" r="2.2"/><text class="lbl newlbl" x="478" y="470" text-anchor="start">Sill nosing renewed</text><line class="ldr" x1="474" y1="170" x2="400" y2="170"/><circle class="pt" cx="400" cy="170" r="2.2"/><text class="lbl keeplbl" x="478" y="174" text-anchor="start">Original sash, glass and mouldings kept</text></g>
+          </svg></div>
+          <figcaption id="sd-cap">Rot starts at the sill nosing, the bottom rail and the joints at its ends. We cut out only that timber and splice in new, so the rest of the original window is kept.</figcaption>
+        </figure>
+        <p class="note"><b>Why:</b> surveyors and building owners often assume a rotten sash means a new window. One drawing shows why repair is possible and what “Repair Care trained” actually means. The same diagram would anchor a dedicated sash windows page.</p>
+      </div>
+    </section>
+
     <section class="story" aria-labelledby="ba">
-      <div><p class="eyebrow">03 · Result</p><h2 id="ba">Before and after</h2></div>
+      <div><p class="eyebrow">04 · Result</p><h2 id="ba">Before and after</h2></div>
       <div>
         <div class="slider" id="slider">
           <div class="empty" role="img" aria-label="Placeholder for a before photo"><b>Before photo</b><span>Site photo of the entrance before work began, taken from the same spot.</span></div>
@@ -163,7 +235,7 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
     </section>
 
     <section class="story" aria-labelledby="site">
-      <div><p class="eyebrow">04 · On site</p><h2 id="site">Working around the building</h2></div>
+      <div><p class="eyebrow">05 · On site</p><h2 id="site">Working around the building</h2></div>
       <div class="prose">
         <p>The work was programmed elevation by elevation so that <span class="ph">[the building could stay in use / access to the garden was kept]</span>. <span class="ph">Sashes were repaired in situ, one opening at a time, so no room was left without a window overnight.</span></p>
         <p>Our <span class="ph">[number]</span>-strong team was CSCS carded, worked to RAMS agreed with <span class="ph">[main contractor]</span> and finished <span class="ph">[on programme]</span>.</p>
@@ -171,7 +243,7 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
     </section>
 
     <section class="story" aria-label="Client feedback">
-      <div><p class="eyebrow">05 · Feedback</p></div>
+      <div><p class="eyebrow">06 · Feedback</p></div>
       <blockquote class="quote-block">
         <p><span class="ph">[One or two sentences from the main contractor’s project manager about quality, tidiness or keeping to programme.]</span></p>
         <footer><span class="ph">[Name]</span>, Project Manager, <span class="ph">[Main contractor]</span></footer>
@@ -226,6 +298,13 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
 const t = document.getElementById('toggle');
 const sl = document.getElementById('slider'), rg = document.getElementById('ba-range');
 rg.addEventListener('input', () => { sl.style.animation = 'none'; sl.style.setProperty('--pos', rg.value + '%'); });
+const fig = document.getElementById('sdfig');
+const sc = fig.querySelector('.sdscroll');
+if (sc.scrollWidth > sc.clientWidth) sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) / 2;
+fig.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+  fig.dataset.state = b.dataset.v;
+  fig.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b));
+}));
 t.addEventListener('click', () => {
   const on = document.body.classList.toggle('notes');
   t.setAttribute('aria-pressed', on);
