@@ -48,15 +48,23 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
 .sched td:nth-child(2) { font: 400 1.05rem/1.35 var(--display); width: 9rem }
 .sched td:last-child { font: 400 .75rem/1.5 var(--mono) }
 
-/* Before / after */
-.ba { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px }
-.ba figure { margin: 0; display: grid; gap: 8px }
-.ba img, .ba .empty { width: 100%; aspect-ratio: 4 / 5; object-fit: cover }
-.ba .empty { display: grid; place-content: center; gap: 8px; text-align: center; border: 1px dashed var(--slate); background: repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in srgb, var(--slate) 10%, transparent) 14px 15px); color: var(--slate); padding: 16px }
-.ba .empty b { font: 400 1.25rem/1.2 var(--display); color: var(--railing) }
-.ba .empty span { font-size: var(--s-sm); max-width: 26ch }
-.ba figcaption { display: flex; justify-content: space-between; gap: 12px; font: 500 .6875rem/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--slate) }
-@media (max-width: 520px) { .ba { grid-template-columns: minmax(0, 1fr) } }
+/* Before / after slider */
+@property --pos { syntax: "<percentage>"; inherits: true; initial-value: 50% }
+.slider { position: relative; aspect-ratio: 4 / 3; max-width: 100%; overflow: hidden; background: var(--stone); --pos: 50%; animation: hint 1.8s cubic-bezier(.45, 0, .25, 1) 1.2s }
+@keyframes hint { 0%, 100% { --pos: 50% } 35% { --pos: 38% } 70% { --pos: 60% } }
+.slider .empty, .slider .after { position: absolute; inset: 0; width: 100%; height: 100% }
+.slider .empty { display: grid; place-content: center; gap: 8px; text-align: center; color: var(--slate); padding: 16px 52% 16px 16px; background: repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in srgb, var(--slate) 12%, transparent) 14px 15px) }
+.slider .empty b { font: 400 1.25rem/1.2 var(--display); color: var(--railing) }
+.slider .empty span { font-size: var(--s-sm); max-width: 26ch; justify-self: center }
+.slider .after { object-fit: cover; clip-path: inset(0 0 0 var(--pos)) }
+.handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: var(--gold-hi); pointer-events: none }
+.handle span { position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--railing); color: var(--gold-hi); font: 400 1.2rem/1 var(--body); letter-spacing: 2px; box-shadow: 0 2px 10px rgb(0 0 0 / .3) }
+.lab { position: absolute; bottom: 12px; font: 500 .6875rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; padding: 6px 8px; background: var(--stucco); color: var(--railing); pointer-events: none }
+.lab.l { left: 12px } .lab.r { right: 12px }
+.slider input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize }
+.slider:has(input:focus-visible) .handle span { outline: 2px solid var(--gold); outline-offset: 3px }
+@media (max-width: 520px) { .slider { aspect-ratio: 4 / 5 } .slider .empty { padding-right: 16px } }
+@media (prefers-reduced-motion: reduce) { .slider { animation: none } }
 
 /* Quote */
 .quote-block { margin: 0; padding: 28px 0 0; border-top: 2px solid var(--gold); display: grid; gap: 16px; max-width: 60ch }
@@ -77,7 +85,7 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="index.html" aria-label="Hugh Anthony home"><b>Hugh Anthony</b><small>Interiors &amp; Exteriors · Est. 2000</small></a>
+    <a class="brand" href="index.html" aria-label="Hugh Anthony home"><span class="mono" aria-hidden="true">HA</span><span class="wm"><b>Hugh Anthony</b><small>Interiors &amp; Exteriors · Est. 2000</small></span></a>
     <nav class="nav" aria-label="Main">
       <a href="index.html#projects" aria-current="page" style="color:var(--railing)">Projects</a>
       <a href="index.html#methods">Specialist methods</a>
@@ -104,6 +112,7 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
         <dt>Main contractor</dt><dd><span class="ph">[Contractor name]</span></dd>
         <dt>Programme</dt><dd><span class="ph">[x weeks, 20xx]</span></dd>
         <dt>Our trades</dt><dd>Decorating · carpentry · metalwork prep</dd>
+        <dt>Colours</dt><dd class="chips"><p class="chip"><i style="--c:#ebe7de"></i><span>Stucco<em>ref TBC</em></span></p><p class="chip"><i style="--c:#f4f3ef"></i><span>Sashes<em>ref TBC</em></span></p><p class="chip"><i style="--c:#232a2e"></i><span>Door &amp; railings<em>ref TBC</em></span></p></dd>
       </dl>
     </div>
 
@@ -142,17 +151,14 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
     <section class="story" aria-labelledby="ba">
       <div><p class="eyebrow">03 · Result</p><h2 id="ba">Before and after</h2></div>
       <div>
-        <div class="ba">
-          <figure>
-            <div class="empty" role="img" aria-label="Placeholder for a before photo"><b>Before photo</b><span>Ask Hugh Anthony for a site photo of the façade or a sash before work began.</span></div>
-            <figcaption><span>Before</span><span>Entrance elevation</span></figcaption>
-          </figure>
-          <figure>
-            <img src="img/stornoway-door.jpg" alt="Arched entrance door of Stornoway House in white stucco with black railings, after redecoration" loading="lazy">
-            <figcaption><span>After</span><span>Entrance elevation</span></figcaption>
-          </figure>
+        <div class="slider" id="slider">
+          <div class="empty" role="img" aria-label="Placeholder for a before photo"><b>Before photo</b><span>Site photo of the entrance before work began, taken from the same spot.</span></div>
+          <img class="after" src="img/stornoway-door.jpg" alt="Arched entrance door of Stornoway House in white stucco with black railings, after redecoration" loading="lazy">
+          <div class="handle" aria-hidden="true"><span>&#8249;&#8250;</span></div>
+          <span class="lab l" aria-hidden="true">Before</span><span class="lab r" aria-hidden="true">After</span>
+          <input type="range" id="ba-range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
         </div>
-        <p class="note"><b>Why:</b> before-and-after pairs are the most persuasive content a decorator can show, and the current site has none. Most firms have site photos on someone’s phone; collecting them is the main content task for the rebuild.</p>
+        <p class="note"><b>Why:</b> before-and-after pairs are the most persuasive content a decorator can show, and the current site has none. Most firms have site photos on someone’s phone; collecting them is the main content task for the rebuild. Drag the handle to compare.</p>
       </div>
     </section>
 
@@ -189,6 +195,7 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
     </div>
   </section>
 
+  <div class="wrap" aria-hidden="true"><div class="railings on-green"></div></div>
   <section class="band">
     <div class="wrap short">
       <div>
@@ -217,6 +224,8 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
 <button class="toggle" id="toggle" type="button" aria-pressed="false">Show design notes</button>
 <script>
 const t = document.getElementById('toggle');
+const sl = document.getElementById('slider'), rg = document.getElementById('ba-range');
+rg.addEventListener('input', () => { sl.style.animation = 'none'; sl.style.setProperty('--pos', rg.value + '%'); });
 t.addEventListener('click', () => {
   const on = document.body.classList.toggle('notes');
   t.setAttribute('aria-pressed', on);

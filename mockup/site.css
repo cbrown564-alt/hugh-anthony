@@ -184,3 +184,57 @@ body.notes .note { display: block }
 .band .note { background: color-mix(in srgb, var(--note) 14%, var(--band)); color: #b9ccff; border-color: #8fb0ff }
 .toggle { position: fixed; right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px)); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); z-index: 20; font: 600 .8125rem/1 var(--body); padding: 12px 16px; border: 1px dashed var(--note); background: var(--note-bg); color: var(--note); cursor: pointer; box-shadow: 0 6px 20px rgb(0 0 0 / .15) }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important } }
+
+/* ===== Character layer: heritage green, paint chips, glyphs, railings, gold leaf ===== */
+:root { --green: #24463a; --green-fg: #eef0ea; --green-mute: #a9bfb4; --green-rule: #3d5d51 }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --green: #1a352b; --green-fg: #eef0ea; --green-mute: #93ab9f; --green-rule: #2e4b40 } }
+:root[data-theme="dark"] { --green: #1a352b; --green-fg: #eef0ea; --green-mute: #93ab9f; --green-rule: #2e4b40 }
+
+/* Monogram plate */
+.brand { display: flex; align-items: center; gap: 12px }
+.brand .wm { display: grid }
+.mono { display: grid; place-items: center; width: 40px; height: 40px; flex: none; font: 400 1.05rem/1 var(--display); letter-spacing: .04em; color: var(--gold); border: 1px solid var(--gold); outline: 1px solid var(--gold); outline-offset: 2px; position: relative }
+.mono::before, .mono::after { content: ""; position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--gold); top: 4px; left: 4px }
+.mono::after { left: auto; right: 4px; bottom: 4px; top: auto }
+@media (max-width: 420px) { .mono { width: 34px; height: 34px; font-size: .9rem } }
+
+/* Gold leaf catching the light: once on load, again on hover */
+.gold { background-image: linear-gradient(100deg, var(--gold) 0 38%, var(--gold-hi) 46%, #fff3c4 50%, var(--gold-hi) 54%, var(--gold) 62% 100%); background-size: 300% 100%; background-position: 0 0; animation: leaf 2.6s cubic-bezier(.45, 0, .25, 1) .6s both }
+.gold:hover { animation-name: leaf2; animation-delay: 0s; animation-duration: 1.8s }
+@keyframes leaf { from { background-position: 100% 0 } to { background-position: 0 0 } }
+@keyframes leaf2 { from { background-position: 100% 0 } to { background-position: 0 0 } }
+
+/* Paint chips: colour sampled from the real finish */
+.chip { display: flex; align-items: center; gap: 10px; margin-top: 6px }
+.chip i { width: 28px; height: 28px; flex: none; background: var(--c); box-shadow: inset 0 0 0 1px rgb(0 0 0 / .12), 0 0 0 1px var(--rule) }
+.chip span { display: grid; font-size: .8125rem; line-height: 1.3 }
+.chip em { font: normal 400 .6875rem/1.3 var(--mono); color: var(--slate) }
+.chips { display: flex; flex-wrap: wrap; gap: 8px 18px }
+
+/* Railings divider: a run of spear-topped railings standing on the next section */
+.railings { height: 46px; background: var(--railing); -webkit-mask: var(--rail) repeat-x left bottom / 20px 46px; mask: var(--rail) repeat-x left bottom / 20px 46px;
+  --rail: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 46'%3E%3Cpath d='M10 0l3.6 8.5L10 11.5 6.4 8.5z'/%3E%3Crect x='7.6' y='11.5' width='4.8' height='2.2'/%3E%3Crect x='9' y='13' width='2' height='33'/%3E%3Crect x='0' y='18' width='20' height='1.8'/%3E%3Crect x='0' y='41' width='20' height='1.8'/%3E%3C/svg%3E") }
+.railings.on-green { margin-bottom: -1px }
+
+/* Heritage green band */
+.green { background: var(--green); color: var(--green-fg) }
+.green .eyebrow, .green .contract .intro p, .green .checks span { color: var(--green-mute) }
+.green .checks { border-top-color: var(--green-fg) }
+.green .checks li { border-color: var(--green-rule) }
+.green .sectors span { border-color: var(--green-rule) }
+.green .btn.solid { background: var(--green-fg); color: var(--green); border-color: var(--green-fg) }
+.green .btn.solid:hover { background: var(--gold-hi); border-color: var(--gold-hi) }
+.green .tbc { color: var(--gold-hi) }
+.green .note { background: color-mix(in srgb, var(--note) 14%, var(--green)); color: #c9d7ff; border-color: #a9c0ff }
+
+/* Method glyphs */
+.mh { display: grid; gap: 14px; align-content: start }
+.glyph { width: 52px; height: 52px; color: var(--railing); overflow: visible }
+.glyph * { vector-effect: non-scaling-stroke }
+.glyph .lower { transition: transform .7s cubic-bezier(.3, .7, .2, 1) }
+.m:hover .glyph .lower, .m:focus-within .glyph .lower { transform: translateY(-9px) }
+.glyph .leaf { fill: color-mix(in srgb, var(--gold) 35%, transparent); stroke: var(--gold) }
+.glyph .lift { transform-origin: 12px 36px; transition: transform .6s cubic-bezier(.3, .7, .2, 1) }
+.m:hover .glyph .lift, .m:focus-within .glyph .lift { transform: rotate(-9deg) translate(-1px, -2px) }
+
+@media (prefers-reduced-motion: reduce) { .gold, .gold:hover { animation: none; background-position: 0 0 } }
