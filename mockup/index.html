@@ -1,0 +1,413 @@
+<title>Hugh Anthony Homepage</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a London stucco terrace read as a schedule of works. Wide photo-led bands, a
+   specification line under every project, gold leaf used only where the firm actually gilds. */
+:root {
+  --stucco: #f6f6f3;      /* page ground: painted stucco, cool not cream */
+  --stone: #e9e9e4;       /* recessed panels */
+  --railing: #1b2220;     /* ink: railing / front-door black-green */
+  --slate: #5d7173;       /* secondary text: Georgian panel blue-green */
+  --rule: #cfd3cf;
+  --gold: #a8812e;        /* gilding */
+  --gold-hi: #d8b35a;
+  --band: #1b2220;        /* dark band ground */
+  --band-fg: #eef0ec;
+  --band-mute: #9fb0ad;
+  --note: #2f5fd0;        /* design-note annotations */
+  --note-bg: #eaf0ff;
+
+  --display: "Marcellus", "Trajan Pro", Georgia, serif;
+  --body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  --s-xs: .75rem; --s-sm: .875rem; --s-md: 1.0625rem; --s-lg: 1.375rem;
+  --s-xl: clamp(1.75rem, 3.2vw, 2.5rem); --s-xxl: clamp(2.25rem, 5.4vw, 4.25rem);
+  --wrap: 1240px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --stucco: #141917; --stone: #1c2321; --railing: #e8ebe6; --slate: #9fb0ad; --rule: #2e3835;
+  --gold: #d1aa52; --gold-hi: #e9c977; --band: #0d1110; --band-fg: #eef0ec; --band-mute: #8fa19e;
+  --note: #8fb0ff; --note-bg: #1a2440; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --stucco: #141917; --stone: #1c2321; --railing: #e8ebe6; --slate: #9fb0ad; --rule: #2e3835;
+  --gold: #d1aa52; --gold-hi: #e9c977; --band: #0d1110; --band-fg: #eef0ec; --band-mute: #8fa19e;
+  --note: #8fb0ff; --note-bg: #1a2440; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--stucco); color: var(--railing); font: 400 var(--s-md)/1.6 var(--body); -webkit-font-smoothing: antialiased }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--stucco) }
+img { display: block; max-width: 100%; height: auto }
+a { color: inherit }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; letter-spacing: .01em }
+p { margin: 0 }
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+@media (min-width: 700px) { .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)) } }
+.eyebrow { font: 500 var(--s-xs)/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--slate) }
+.gold { background: linear-gradient(100deg, var(--gold) 0%, var(--gold-hi) 45%, var(--gold) 70%); -webkit-background-clip: text; background-clip: text; color: transparent }
+
+/* Header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--stucco) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule) }
+.top .wrap { display: flex; align-items: center; gap: 24px; padding-block: 14px }
+.brand { text-decoration: none; display: grid; line-height: 1 }
+.brand b { font: 400 1.5rem/1 var(--display); letter-spacing: .12em; text-transform: uppercase }
+.brand small { font: 500 .625rem/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--slate); margin-top: 6px }
+.nav { display: flex; gap: 22px; margin-left: auto; font-size: var(--s-sm) }
+.nav a { text-decoration: none; color: var(--slate) }
+.nav a:hover { color: var(--railing) }
+.phone { font: 500 var(--s-sm)/1 var(--mono); white-space: nowrap; padding: 10px 14px; border: 1px solid var(--railing); text-decoration: none }
+@media (max-width: 900px) { .nav { display: none } .phone { margin-left: auto } }
+@media (max-width: 420px) { .brand b { font-size: 1.2rem } .phone { padding: 8px 10px; font-size: .75rem } }
+
+/* Hero */
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(24px, 5vw, 72px); align-items: end; padding-block: clamp(32px, 6vw, 72px) clamp(40px, 6vw, 80px) }
+.hero h1 { font-size: var(--s-xxl); line-height: 1.05; margin-top: 18px }
+.hero .lede { font-size: var(--s-lg); line-height: 1.45; color: var(--slate); margin-top: 22px; max-width: 34ch }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px }
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 20px; font: 600 var(--s-sm)/1 var(--body); text-decoration: none; border: 1px solid var(--railing); cursor: pointer; background: none; color: var(--railing) }
+.btn.solid { background: var(--railing); color: var(--stucco) }
+.btn.solid:hover { background: var(--slate); border-color: var(--slate) }
+.btn:not(.solid):hover { background: var(--stone) }
+.since { display: flex; gap: 28px; margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--rule) }
+.since div { display: grid; gap: 2px }
+.since b { font: 400 1.75rem/1 var(--display); font-variant-numeric: tabular-nums }
+.since span { font-size: var(--s-xs); color: var(--slate); line-height: 1.35 }
+.hero figure { margin: 0; position: relative }
+.hero figure img { width: 100%; aspect-ratio: 5 / 4; object-fit: cover }
+.plate { position: absolute; left: 0; bottom: 0; background: var(--stucco); padding: 12px 16px 0 0; max-width: 80% }
+.plate b { font: 400 1.05rem/1.2 var(--display); display: block }
+.plate span { font: 400 var(--s-xs)/1.4 var(--mono); color: var(--slate) }
+@media (max-width: 860px) { .hero .wrap { grid-template-columns: minmax(0, 1fr) } .hero figure { order: -1 } .hero figure img { aspect-ratio: 4 / 3 } }
+
+/* Buildings strip */
+.worked { border-block: 1px solid var(--rule); background: var(--stone) }
+.worked .wrap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 28px; padding-block: 22px }
+.worked .eyebrow { flex-basis: 100% }
+@media (min-width: 1000px) { .worked .eyebrow { flex-basis: auto } }
+.worked li { font: 400 1.125rem/1.3 var(--display); list-style: none }
+.worked ul { display: contents }
+
+/* Section heads */
+section.block { padding-block: clamp(56px, 8vw, 104px) }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px 48px; align-items: end; margin-bottom: clamp(28px, 4vw, 48px) }
+.head h2 { font-size: var(--s-xl); line-height: 1.1; margin-top: 12px }
+.head p { color: var(--slate); max-width: 48ch }
+@media (max-width: 760px) { .head { grid-template-columns: minmax(0, 1fr) } }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(20px, 3vw, 36px) }
+.proj { grid-column: span 4; display: grid; grid-template-rows: auto 1fr; gap: 16px; text-decoration: none }
+.proj.wide { grid-column: span 8 }
+.proj.wide img { aspect-ratio: 16 / 10 }
+.proj img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: filter .3s }
+.proj:hover img { filter: brightness(1.05) contrast(1.03) }
+.proj .meta { display: grid; gap: 8px; align-content: start }
+.proj h3 { font-size: 1.375rem; line-height: 1.2 }
+.proj p { font-size: var(--s-sm); color: var(--slate) }
+.spec { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; font: 400 .75rem/1.45 var(--mono); padding-top: 10px; border-top: 1px solid var(--rule); margin: 4px 0 0 }
+.spec dt { color: var(--slate); text-transform: uppercase; letter-spacing: .08em }
+.spec dd { margin: 0 }
+.more { font: 600 var(--s-sm)/1 var(--body); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--gold) }
+@media (max-width: 960px) { .proj, .proj.wide { grid-column: span 6 } .proj.wide img { aspect-ratio: 4 / 5 } }
+@media (max-width: 600px) { .proj, .proj.wide { grid-column: span 12 } .proj img, .proj.wide img { aspect-ratio: 4 / 3 } }
+
+/* Methods */
+.methods { background: var(--stone); border-block: 1px solid var(--rule) }
+.mgrid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 64px) }
+.mlist { display: grid; gap: 0 }
+.m { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 8px 32px; padding-block: 24px; border-top: 1px solid var(--rule) }
+.m:last-child { border-bottom: 1px solid var(--rule) }
+.m h3 { font-size: 1.25rem; line-height: 1.25 }
+.m p { color: var(--slate); font-size: .975rem; max-width: 52ch }
+.m .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px }
+.m .tags span { font: 400 .6875rem/1 var(--mono); padding: 6px 8px; border: 1px solid var(--rule); background: var(--stucco); letter-spacing: .04em }
+@media (max-width: 640px) { .m { grid-template-columns: minmax(0, 1fr) } }
+.craft { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-self: start; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 90px) }
+.craft figure { margin: 0 }
+.craft img { width: 100%; aspect-ratio: 3 / 5; object-fit: cover }
+.craft figcaption { font: 400 var(--s-xs)/1.4 var(--mono); color: var(--slate); margin-top: 8px }
+.craft .quote { grid-column: 1 / -1; font: 400 1.25rem/1.35 var(--display); padding: 20px 0 0; border-top: 2px solid var(--gold) }
+@media (max-width: 900px) { .mgrid { grid-template-columns: minmax(0, 1fr) } .craft { position: static } .craft img { aspect-ratio: 4 / 5 } }
+
+/* Contractors */
+.contract { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 64px) }
+.contract h2 { font-size: var(--s-xl); line-height: 1.1; margin-top: 12px }
+.contract .intro p { color: var(--slate); margin-top: 18px; max-width: 44ch }
+.checks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--railing) }
+.checks li { padding: 20px 20px 20px 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px }
+.checks li:nth-child(odd) { border-right: 1px solid var(--rule) }
+.checks li:nth-child(even) { padding-left: 20px }
+.checks svg { margin-top: 3px }
+.checks b { display: block; font-weight: 600; font-size: .975rem }
+.checks span { font-size: var(--s-sm); color: var(--slate) }
+.tbc { font: 500 .6875rem/1 var(--mono); color: var(--gold); letter-spacing: .06em }
+@media (max-width: 860px) { .contract { grid-template-columns: minmax(0, 1fr) } }
+@media (max-width: 560px) { .checks { grid-template-columns: minmax(0, 1fr) } .checks li:nth-child(odd) { border-right: 0 } .checks li:nth-child(even) { padding-left: 0 } }
+.sectors { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 8px }
+.sectors span { font-size: var(--s-sm); padding: 7px 12px; border: 1px solid var(--rule) }
+
+/* Enquiry band */
+.band { background: var(--band); color: var(--band-fg) }
+.band .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 72px); padding-block: clamp(56px, 8vw, 96px) }
+.band h2 { font-size: var(--s-xl); line-height: 1.1; margin-top: 12px }
+.band .eyebrow { color: var(--band-mute) }
+.band p { color: var(--band-mute); margin-top: 16px; max-width: 40ch }
+.direct { display: grid; gap: 16px; margin-top: 32px }
+.direct div { display: grid; gap: 2px }
+.direct small { font: 500 .6875rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--band-mute) }
+.direct b { font: 400 1.5rem/1.2 var(--display); user-select: all }
+form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px }
+form .full { grid-column: 1 / -1 }
+label { display: grid; gap: 6px; font: 500 .6875rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--band-mute) }
+input, select, textarea { font: 400 1rem/1.4 var(--body); color: var(--band-fg); background: transparent; border: 0; border-bottom: 1px solid var(--band-mute); padding: 8px 0; border-radius: 0; width: 100% }
+select option { color: #1b2220 }
+textarea { resize: vertical; min-height: 90px }
+.radios { display: flex; flex-wrap: wrap; gap: 8px; border: 0; padding: 0; margin: 0 }
+.radios legend { font: 500 .6875rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--band-mute); margin-bottom: 10px; padding: 0 }
+.radios label { display: inline-flex; align-items: center; gap: 8px; text-transform: none; letter-spacing: 0; font: 400 var(--s-sm)/1 var(--body); color: var(--band-fg); padding: 9px 12px; border: 1px solid color-mix(in srgb, var(--band-mute) 50%, transparent); cursor: pointer }
+.radios input { width: auto; accent-color: var(--gold) }
+.band .btn { border-color: var(--gold); color: var(--band-fg); justify-self: start }
+.band .btn:hover { background: var(--gold); color: var(--band) }
+.sent { grid-column: 1 / -1; font-size: var(--s-sm); color: var(--gold-hi) }
+@media (max-width: 860px) { .band .wrap { grid-template-columns: minmax(0, 1fr) } }
+@media (max-width: 520px) { form { grid-template-columns: minmax(0, 1fr) } }
+
+/* Footer */
+footer .wrap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; padding-block: 48px; font-size: var(--s-sm); color: var(--slate) }
+footer b { display: block; color: var(--railing); font-weight: 600; margin-bottom: 8px }
+footer address { font-style: normal }
+footer .legal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px 24px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: var(--s-xs) }
+@media (max-width: 760px) { footer .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
+
+/* Design notes (pitch annotations) */
+.note { display: none; font: 400 .8125rem/1.45 var(--body); color: var(--note); background: var(--note-bg); border: 1px dashed var(--note); padding: 10px 12px; margin-top: 14px; max-width: 46ch }
+.note b { font-weight: 600 }
+body.notes .note { display: block }
+.band .note { background: color-mix(in srgb, var(--note) 14%, var(--band)); color: #b9ccff; border-color: #8fb0ff }
+.toggle { position: fixed; right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px)); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); z-index: 20; font: 600 .8125rem/1 var(--body); padding: 12px 16px; border: 1px dashed var(--note); background: var(--note-bg); color: var(--note); cursor: pointer; box-shadow: 0 6px 20px rgb(0 0 0 / .15) }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Hugh Anthony home"><b>Hugh Anthony</b><small>Interiors &amp; Exteriors · Est. 2000</small></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#projects">Projects</a>
+      <a href="#methods">Specialist methods</a>
+      <a href="#contractors">For contractors</a>
+      <a href="#about">About</a>
+      <a href="#enquire">Contact</a>
+    </nav>
+    <a class="phone" href="tel:02088554555">020 8855 4555</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Painting, decorating &amp; sash restoration · London and the South East</p>
+        <h1>Redecoration for London’s historic and <span class="gold">listed</span> buildings.</h1>
+        <p class="lede">Specialist painting and window restoration sub-contractor to restoration and refurbishment contractors, since 2000.</p>
+        <div class="ctas">
+          <a class="btn solid" href="#enquire">Discuss a package</a>
+          <a class="btn" href="#contractors">Capability statement (PDF)</a>
+        </div>
+        <div class="since">
+          <div><b>2000</b><span>Family owned<br>and run since</span></div>
+          <div><b>CSCS</b><span>Carded<br>workforce</span></div>
+          <div><b>M25</b><span>Based in Orpington,<br>Kent</span></div>
+        </div>
+        <p class="note"><b>Why:</b> the current homepage opens on a blurred stock skyline and “Quality meets excellence”. This says exactly what they do, for whom, and where, then gives a main contractor the two things they came for: a phone call or the paperwork.</p>
+      </div>
+      <figure>
+        <img src="img/stornoway-house.jpg" alt="Stornoway House, a white stucco Regency building with balconies, after external redecoration" width="1190" height="1200">
+        <figcaption class="plate"><b>Stornoway House</b><span>Façade redecoration · sash carpentry repairs · railings</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="worked" aria-label="Buildings we have worked on">
+    <div class="wrap">
+      <p class="eyebrow">Buildings we have worked on</p>
+      <ul>
+        <li>Portuguese Embassy</li>
+        <li>St Martin-in-the-Fields</li>
+        <li>Smithfield Market</li>
+        <li>Vintners’ Hall</li>
+        <li>Holborn Bars</li>
+        <li>No. 1 Palace Street</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="projects">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="eyebrow">Selected projects</p><h2>Work on buildings people walk past every day</h2></div>
+        <p>Every project links to a full case study: the brief, the condition we found, the system we specified and how it was programmed around the building in use.</p>
+      </div>
+      <div class="projects">
+        <a class="proj wide" href="#projects">
+          <img src="img/portuguese-embassy.jpg" alt="The Portuguese Embassy, a white stucco corner building in Belgravia" loading="lazy">
+          <div class="meta">
+            <h3>Portuguese Embassy</h3>
+            <p>External redecoration of the façade and windows, with carpentry repairs to sash windows as required.</p>
+            <dl class="spec"><dt>Scope</dt><dd>Façade · windows · sash repairs</dd><dt>Sector</dt><dd>Embassy &amp; chancery</dd></dl>
+          </div>
+        </a>
+        <a class="proj" href="#projects">
+          <img src="img/berkshire-college.jpg" alt="Panelled room with blue-green wall panels and a white pedimented door" loading="lazy">
+          <div class="meta">
+            <h3>Berkshire College of Agriculture</h3>
+            <p>Internal redecoration of panelled walls and ceiling to the Jacob Bancks Room.</p>
+            <dl class="spec"><dt>Scope</dt><dd>Panelling · ceiling</dd><dt>Sector</dt><dd>Schools &amp; colleges</dd></dl>
+          </div>
+        </a>
+        <a class="proj" href="#projects">
+          <img src="img/vestry-hall.jpg" alt="Vestry Hall at St Martin-in-the-Fields, a pale stone façade" loading="lazy">
+          <div class="meta">
+            <h3>Vestry Hall, St Martin-in-the-Fields</h3>
+            <p>External redecoration of the façade in mineral silicate paint.</p>
+            <dl class="spec"><dt>System</dt><dd>Keim Mineral Paints</dd><dt>Sector</dt><dd>Churches</dd></dl>
+          </div>
+        </a>
+        <a class="proj" href="#projects">
+          <img src="img/trinity-wharf.jpg" alt="Communal corridor finished in a patterned fabric-backed wallcovering" loading="lazy">
+          <div class="meta">
+            <h3>Trinity Wharf</h3>
+            <p>Internal redecoration and fabric-backed vinyl wallcovering to the communal areas of five buildings.</p>
+            <dl class="spec"><dt>Scope</dt><dd>5 buildings · communal areas</dd><dt>Sector</dt><dd>Residential blocks</dd></dl>
+          </div>
+        </a>
+        <a class="proj" href="#projects">
+          <img src="img/stornoway-door.jpg" alt="Arched entrance door of Stornoway House with new railings" loading="lazy">
+          <div class="meta">
+            <h3>Stornoway House</h3>
+            <p>Façade redecoration, sash window carpentry repairs, new terrace decking and refurbished railings.</p>
+            <dl class="spec"><dt>Scope</dt><dd>Façade · sashes · decking · railings</dd><dt>Sector</dt><dd>Listed buildings</dd></dl>
+          </div>
+        </a>
+      </div>
+      <p class="note"><b>Why:</b> today’s portfolio has one photo and one line per job. A “spec line” under each project speaks a contractor’s language (scope, system, sector) and each card becomes a case study page that can rank in search.</p>
+    </div>
+  </section>
+
+  <section class="block methods" id="methods">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="eyebrow">Specialist methods</p><h2>The right coating for the substrate, and the trades to finish the job</h2></div>
+        <p>Historic fabric needs breathable systems and people who know when to repair rather than replace. We do the preparation, carpentry and fine finishing in house.</p>
+      </div>
+      <div class="mgrid">
+        <div class="mlist">
+          <div class="m">
+            <h3>External redecoration</h3>
+            <div><p>Limewash for traditional and historic properties, mineral silicate paint that bonds with the masonry, and breathable masonry systems for render and stucco.</p>
+              <div class="tags"><span>Limewash</span><span>Keim mineral silicate</span><span>Dulux Weathershield</span></div></div>
+          </div>
+          <div class="m">
+            <h3>Sash &amp; casement windows</h3>
+            <div><p>Timber repair and conservation using the Repair Care system, which our operatives are trained in. New sashes and casements supplied and fitted where needed.</p>
+              <div class="tags"><span>Repair Care trained</span><span>Splice repairs</span><span>Draught-proofing</span></div></div>
+          </div>
+          <div class="m">
+            <h3>Interiors &amp; wallcoverings</h3>
+            <div><p>Panelled rooms, ceilings and woodwork, plus traditional papers for residential work and wide-width vinyl for commercial and communal areas.</p>
+              <div class="tags"><span>Panelling</span><span>Traditional papers</span><span>Wide-width vinyl</span></div></div>
+          </div>
+          <div class="m">
+            <h3>Fine &amp; decorative finishes</h3>
+            <div><p>Gilding, bronzing, sign writing and glazed brick and tile repairs, carried out by our own fine artist.</p>
+              <div class="tags"><span>Gold leaf</span><span>Bronzing</span><span>Sign writing</span><span>Glazed brick repair</span></div></div>
+          </div>
+        </div>
+        <div class="craft">
+          <figure><img src="img/gilded-lion.jpg" alt="A gilded lion statue on a stone plinth" loading="lazy"><figcaption>Gilding</figcaption></figure>
+          <figure><img src="img/signwriting-albany.jpg" alt="Gold sign-written lettering reading Albany on a black fascia" loading="lazy"><figcaption>Sign writing</figcaption></figure>
+          <p class="quote">Few painting contractors can also gild, signwrite and repair glazed brick. That is why restoration contractors call us.</p>
+        </div>
+      </div>
+      <p class="note"><b>Why:</b> the niche skills are the real differentiator but sit in one sentence on the About page. Each method here should get its own page for search terms like “Keim mineral paint contractor London” or “sash window repair care London”.</p>
+    </div>
+  </section>
+
+  <section class="block" id="contractors">
+    <div class="wrap contract">
+      <div class="intro">
+        <p class="eyebrow">For main contractors</p>
+        <h2>Ready for your pre-qualification</h2>
+        <p>We work as a sub-contractor to restoration and refurbishment contractors. Everything you need to onboard us is in one document.</p>
+        <div class="ctas"><a class="btn solid" href="#enquire">Request capability statement</a></div>
+        <div class="sectors" id="about" aria-label="Sectors">
+          <span>Heritage &amp; listed buildings</span><span>Churches</span><span>Inns of Court</span><span>Livery halls</span><span>Chancery buildings</span><span>Landed estates</span><span>Schools &amp; colleges</span><span>Residential blocks</span><span>Commercial</span>
+        </div>
+      </div>
+      <ul class="checks">
+        <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9.5l4 4 8-9" fill="none" stroke="var(--gold)" stroke-width="2"/></svg><div><b>CSCS carded workforce</b><span>Experienced in all aspects of the trade</span></div></li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9.5l4 4 8-9" fill="none" stroke="var(--gold)" stroke-width="2"/></svg><div><b>SMAS Worksafe</b><span>Health &amp; safety pre-qualification</span></div></li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9.5l4 4 8-9" fill="none" stroke="var(--gold)" stroke-width="2"/></svg><div><b>CITB registered</b><span>Training and apprenticeships</span></div></li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9.5l4 4 8-9" fill="none" stroke="var(--gold)" stroke-width="2"/></svg><div><b>Repair Care trained</b><span>Timber window repair system</span></div></li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9.5l4 4 8-9" fill="none" stroke="var(--gold)" stroke-width="2"/></svg><div><b>RAMS for every package</b><span class="tbc">TO CONFIRM WITH CLIENT</span></div></li>
+        <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9.5l4 4 8-9" fill="none" stroke="var(--gold)" stroke-width="2"/></svg><div><b>Public liability £[x]m</b><span class="tbc">TO CONFIRM WITH CLIENT</span></div></li>
+      </ul>
+    </div>
+    <div class="wrap"><p class="note"><b>Why:</b> the About page says most work comes through main contractors, but nothing on the site answers a contractor’s checklist. Gold-labelled items are placeholders to confirm with Hugh Anthony before anything goes live.</p></div>
+  </section>
+
+  <section class="band" id="enquire">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Enquiries &amp; tenders</p>
+        <h2>Pricing a heritage package?</h2>
+        <p>Send us the drawings or specification and we will come back with a price and programme. Site visits by appointment.</p>
+        <div class="direct">
+          <div><small>Office · Mon–Fri 8.30–5.30</small><b>020 8855 4555</b></div>
+          <div><small>Email</small><b>info@hughanthony.co.uk</b></div>
+        </div>
+      </div>
+      <form id="enq" novalidate>
+        <label>Name<input id="f-name" name="name" autocomplete="name" value=""></label>
+        <label>Company<input id="f-co" name="company" autocomplete="organization"></label>
+        <fieldset class="radios full"><legend>I am a</legend>
+          <label><input type="radio" name="role" id="r1" value="contractor" checked> Main contractor</label>
+          <label><input type="radio" name="role" id="r2" value="agent"> Managing agent / surveyor</label>
+          <label><input type="radio" name="role" id="r3" value="owner"> Building owner</label>
+        </fieldset>
+        <label class="full">Project &amp; location<input id="f-proj" name="project" placeholder="e.g. Grade II terrace, Kensington: external redecoration"></label>
+        <label class="full">Message<textarea id="f-msg" name="message" placeholder="Scope, programme, tender return date"></textarea></label>
+        <button class="btn full" type="submit">Send enquiry</button>
+        <p class="sent" id="sent" hidden>Mockup only. In the live site this would send to info@hughanthony.co.uk.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Hugh Anthony Interiors Ltd</b>Family owned and run since 2000. Specialist painting, decorating and window restoration for London and the South East.</div>
+    <div><b>Office</b><address>Suite 32, Press House<br>Crest View Drive<br>Petts Wood, Orpington<br>Kent BR5 1FE</address></div>
+    <div><b>Contact</b>020 8855 4555<br>info@hughanthony.co.uk<br>Visits by appointment</div>
+    <div><b>Site</b><a href="#projects">Projects</a><br><a href="#methods">Specialist methods</a><br><a href="#contractors">For contractors</a></div>
+    <div class="legal"><span>© 2026 Hugh Anthony Interiors Ltd</span><span>Registered in England no. 3979960</span><span>Terms</span><span>Privacy</span></div>
+  </div>
+</footer>
+
+<button class="toggle" id="toggle" type="button" aria-pressed="false">Show design notes</button>
+
+<script>
+const t = document.getElementById('toggle');
+t.addEventListener('click', () => {
+  const on = document.body.classList.toggle('notes');
+  t.setAttribute('aria-pressed', on);
+  t.textContent = on ? 'Hide design notes' : 'Show design notes';
+});
+document.getElementById('enq').addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('sent').hidden = false;
+});
+</script>
