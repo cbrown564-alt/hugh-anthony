@@ -112,6 +112,7 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
 .sdfig[data-state="decay"] .s-decay .rot { animation: seep .5s ease both }
 @keyframes seep { from { opacity: 0 } }
 @media (prefers-reduced-motion: reduce) { .sd .layer { transition: none } .sdfig .rot { animation: none } }
+.story { scroll-margin-top: 90px }
 </style>
 </head>
 <body>
@@ -298,6 +299,22 @@ table.sched { width: 100%; min-width: 620px; border-collapse: collapse; font-siz
 const t = document.getElementById('toggle');
 const sl = document.getElementById('slider'), rg = document.getElementById('ba-range');
 rg.addEventListener('input', () => { sl.style.animation = 'none'; sl.style.setProperty('--pos', rg.value + '%'); });
+// Open at the top (or at #section), overriding any restored scroll position.
+try { history.scrollRestoration = 'manual'; } catch (e) {}
+(() => {
+  let userMoved = false;
+  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(ev => addEventListener(ev, () => { userMoved = true; }, { once: true, passive: true }));
+  const place = () => {
+    if (userMoved) return;
+    const target = location.hash && document.getElementById(location.hash.slice(1));
+    if (target) target.scrollIntoView({ block: 'start' });
+    else scrollTo(0, 0);
+  };
+  place();
+  addEventListener('load', place);
+  addEventListener('pageshow', place);
+  [150, 500, 1000].forEach(ms => setTimeout(place, ms));
+})();
 const fig = document.getElementById('sdfig');
 const sc = fig.querySelector('.sdscroll');
 if (sc.scrollWidth > sc.clientWidth) sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) / 2;
